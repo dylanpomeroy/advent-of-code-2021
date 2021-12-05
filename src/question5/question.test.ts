@@ -22,6 +22,6 @@ describe(`Question ${questionNum}`, () => {
 
   it('part B input 0', async () => {
     const input = await getInputStrings(questionNum, "input")
-    expect(await question.partB(input)).to.equal(0)
+    expect(await question.partB(input)).to.equal(19929)
   })
 })
