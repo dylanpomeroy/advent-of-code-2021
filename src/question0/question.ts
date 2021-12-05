@@ -1,8 +1,8 @@
-const partA = async (input: number[]) => {
+const partA = async (input: string[]) => {
   return 0
 }
 
-const partB = async (input: number[]) => {
+const partB = async (input: string[]) => {
   return 0
 }
 
