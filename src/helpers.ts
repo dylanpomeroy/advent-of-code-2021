@@ -3,7 +3,11 @@ import fs from 'fs'
 export const getInputNumbers = async (questionNum: number, filename: string) => {
   const inputFileContent = await fs.promises.readFile(
     `./src/question${questionNum}/inputs/${filename}`, `utf8`)
-  return inputFileContent.split("\n").map(numberString => Number.parseInt(numberString))
+
+  if (inputFileContent.split("\n").length > 1)
+    return inputFileContent.split("\n").map(numberString => Number.parseInt(numberString))
+  else
+    return inputFileContent.split(',').map(numberString => Number.parseInt(numberString))
 }
 
 export const getInputStrings = async (questionNum: number, filename: string) => {

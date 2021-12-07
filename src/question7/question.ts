@@ -1,38 +1,37 @@
-const partA = async (input: string[]) => {
-  const initialCrabPositions = input[0].split(',').map(numStr => parseInt(numStr))
+const partA = async (input: number[]) => {
+  let leastFuelAmount = Number.MAX_VALUE
+  for (
+    let potentialPosition = Math.min(...input);
+    potentialPosition <= Math.max(...input);
+    potentialPosition++) {
 
-  const maxPos = Math.max(...initialCrabPositions)
-  const minPos = Math.min(...initialCrabPositions)
+    const requiredFuel = input
+      .map(crabPosition => Math.abs(crabPosition - potentialPosition))
+      .reduce((a, b) => a + b)
 
-  let leastFuelAmount: number | undefined;
-  for (let potentialPosition = minPos; potentialPosition <= maxPos; potentialPosition++) {
-    const requiredFuel = initialCrabPositions.map(crabPosition => Math.abs(crabPosition - potentialPosition)).reduce((a, b) => a + b)
-    if (!leastFuelAmount || leastFuelAmount > requiredFuel) {
-      leastFuelAmount = requiredFuel
-    }
+    leastFuelAmount = Math.min(leastFuelAmount, requiredFuel)
   }
 
   return leastFuelAmount
 }
 
-const partB = async (input: string[]) => {
-  const initialCrabPositions = input[0].split(',').map(numStr => parseInt(numStr))
-
-  const maxPos = Math.max(...initialCrabPositions)
-  const minPos = Math.min(...initialCrabPositions)
-
+const partB = async (input: number[]) => {
   const getFuelCost = (initialPosition: number, newPosition: number) => {
     const n = Math.abs(initialPosition - newPosition)
-
     return n*(n+1)/2
   }
 
-  let leastFuelAmount: number | undefined;
-  for (let potentialPosition = minPos; potentialPosition <= maxPos; potentialPosition++) {
-    const requiredFuel = initialCrabPositions.map(crabPosition => getFuelCost(crabPosition, potentialPosition)).reduce((a, b) => a + b)
-    if (!leastFuelAmount || leastFuelAmount > requiredFuel) {
-      leastFuelAmount = requiredFuel
-    }
+  let leastFuelAmount = Number.MAX_VALUE
+  for (
+    let potentialPosition = Math.min(...input);
+    potentialPosition <= Math.max(...input);
+    potentialPosition++) {
+    
+      const requiredFuel = input
+      .map(crabPosition => getFuelCost(crabPosition, potentialPosition))
+      .reduce((a, b) => a + b)
+    
+    leastFuelAmount = Math.min(leastFuelAmount, requiredFuel)
   }
 
   return leastFuelAmount
