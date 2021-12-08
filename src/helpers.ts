@@ -5,7 +5,7 @@ export const getInputNumbers = async (questionNum: number, filename: string) => 
     `./src/question${questionNum}/inputs/${filename}`, `utf8`)
 
   if (inputFileContent.split("\n").length > 1)
-    return inputFileContent.split("\n").map(numberString => Number.parseInt(numberString))
+    return inputFileContent.split("\r\n").map(numberString => Number.parseInt(numberString))
   else
     return inputFileContent.split(',').map(numberString => Number.parseInt(numberString))
 }
