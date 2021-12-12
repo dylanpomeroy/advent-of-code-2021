@@ -32,34 +32,7 @@ def build_map(input):
 paths_found = []
 
 
-def find_path_count(cave_map):
-    global paths_found
-
-    def traverse_cave(cave_map, from_cave, current_path):
-        this_current_path = current_path.copy()
-        global paths_found
-        if from_cave.name == 'end':
-            this_current_path.append('end')
-            paths_found.append(this_current_path)
-            return
-
-        this_current_path.append(from_cave.name)
-
-        no_go_caves = list(
-            filter(lambda cave_name: not cave_name.isupper(),
-                   this_current_path))
-        for path in from_cave.paths:
-            if path.name not in no_go_caves:
-                traverse_cave(cave_map, path, this_current_path)
-
-    traverse_cave(cave_map, cave_map['start'], [])
-
-    result = paths_found
-    paths_found = []
-    return result
-
-
-def find_path_count_v2(cave_map):
+def find_paths(cave_map, can_visit_a_small_cave_twice=False):
     global paths_found
 
     def traverse_cave(cave_map, from_cave, current_path):
@@ -89,7 +62,8 @@ def find_path_count_v2(cave_map):
                 continue
             if path.name not in already_visited_small_caves:
                 traverse_cave(cave_map, path, this_current_path)
-            elif not current_path_visited_small_cave_twice(this_current_path):
+            elif can_visit_a_small_cave_twice and not\
+                    current_path_visited_small_cave_twice(this_current_path):
                 traverse_cave(cave_map, path, this_current_path)
 
     traverse_cave(cave_map, cave_map['start'], [])
@@ -101,11 +75,11 @@ def find_path_count_v2(cave_map):
 
 def part1(input):
     cave_map = build_map(input)
-    paths_found = find_path_count(cave_map)
+    paths_found = find_paths(cave_map)
     return len(paths_found)
 
 
 def part2(input):
     cave_map = build_map(input)
-    paths_found = find_path_count_v2(cave_map)
+    paths_found = find_paths(cave_map, can_visit_a_small_cave_twice=True)
     return len(paths_found)
