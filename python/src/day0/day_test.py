@@ -1,4 +1,4 @@
-from day0.day import part1, part2
+from .day import part1, part2
 from utils import getSampleInput, getInput
 
 
@@ -9,4 +9,4 @@ def test_part1_sample():
 
 def test_part1_input():
     input = getInput(__file__)
-    assert part2(input) == 0
+    assert part1(input) == 0
