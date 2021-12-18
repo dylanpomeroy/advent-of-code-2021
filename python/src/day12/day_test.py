@@ -1,4 +1,4 @@
-from day12.day import part1, part2
+from .day import part1, part2
 from utils import getSampleInput, getInput
 
 
